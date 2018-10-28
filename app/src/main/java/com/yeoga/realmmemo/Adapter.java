@@ -82,11 +82,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
         }
 
         public void showModifyDialog() {
-//            LayoutInflater inflater = getLayoutInflater();
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final View modifyView = inflater.inflate(R.layout.modify_dialog,null);
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setTitle("수정");
+            EditText editText_mofigy = modifyView.findViewById(R.id.editText_mofigy);
+            if (MainActivity.realmResults.get(getAdapterPosition()).text != null) {
+                editText_mofigy.setText(MainActivity.realmResults.get(getAdapterPosition()).text);
+            }
             builder.setView(modifyView);
             builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
                 @Override
@@ -105,7 +108,4 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             builder.show();
         }
     }
-
-
-
 }
