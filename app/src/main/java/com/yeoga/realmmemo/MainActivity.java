@@ -1,7 +1,9 @@
 package com.yeoga.realmmemo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -78,9 +80,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void showModifyDialog() {
+        LayoutInflater inflater = getLayoutInflater();
+        final View modifyView = inflater.inflate(R.layout.modify_dialog,null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("수정");
+        builder.setView(modifyView);
+        builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
 
-
-
+            }
+        });
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                EditText editText_mofigy = (EditText) modifyView.findViewById(R.id.editText_mofigy);
+                editText_mofigy.getText().toString();
+            }
+        });
+    }
 
     @Override
     protected void onDestroy() {

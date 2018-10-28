@@ -76,12 +76,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             }
         }
 
-        public void showModifyDialog() {
-            LayoutInflater inflater = getLayoutInflater();
-            final View modifyView = inflater.inflate(R.layout.modify_dialog,null);
-            AlertDialog.Builder builder = new AlertDialog.Builder();
 
-        }
     }
 
 
