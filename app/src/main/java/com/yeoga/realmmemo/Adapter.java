@@ -2,12 +2,15 @@ package com.yeoga.realmmemo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,9 +19,11 @@ import io.realm.Realm;
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
 
     List<dbModel> realmResults;
+    public static Context mContext;
 
-    public Adapter(List<dbModel> _realmResults) {
+    public Adapter(List<dbModel> _realmResults, Context _context) {
         realmResults = _realmResults;
+        mContext = _context;
     }
 
     @NonNull
@@ -76,7 +81,29 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             }
         }
 
+        public void showModifyDialog() {
+//            LayoutInflater inflater = getLayoutInflater();
+            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View modifyView = inflater.inflate(R.layout.modify_dialog,null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setTitle("수정");
+            builder.setView(modifyView);
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
+                }
+            });
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    EditText editText_mofigy = (EditText) modifyView.findViewById(R.id.editText_mofigy);
+                    editText_mofigy.getText().toString();
+                }
+            });
+            builder.create();
+            builder.show();
+        }
     }
 
 
