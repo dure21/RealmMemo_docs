@@ -106,7 +106,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
                         public void execute(Realm realm) {
                             dbModel dbmodel =MainActivity.realmResults.get(getAdapterPosition());
                             dbmodel.setText(editText_mofigy.getText().toString());
-                            //                    MainActivity.realm.insertOrUpdate(dbmodel);
                             MainActivity.adapter.notifyDataSetChanged();
                         }
                     });
