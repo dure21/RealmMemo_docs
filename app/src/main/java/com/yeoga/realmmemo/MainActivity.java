@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText editText;
     public static Realm realm;
     public static RealmResults<dbModel> realmResults;
+    public static dbModel dbmodel;
     public static Adapter adapter;
 
     @Override
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button:
                 realm.beginTransaction();
-                dbModel dbmodel = realm.createObject(dbModel.class);
+                dbmodel = realm.createObject(dbModel.class);
                 dbmodel.setText(editText.getText().toString());
                 realm.commitTransaction();
                 editText.setText("");

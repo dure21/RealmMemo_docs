@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import io.realm.Realm;
@@ -64,9 +65,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             switch (v.getId()) {
                 case R.id.button_modify:
                     showModifyDialog();
-//                        Model model =MainActivity.models.get(getAdapterPosition());
-//
-//                        MainActivity.realm.insertOrUpdate(model);
+
                     break;
                 case R.id.button_remove:
                     MainActivity.realm.executeTransaction(new Realm.Transaction() {
@@ -100,8 +99,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    EditText editText_mofigy = (EditText) modifyView.findViewById(R.id.editText_mofigy);
-                    editText_mofigy.getText().toString();
+                    final EditText editText_mofigy = (EditText) modifyView.findViewById(R.id.editText_mofigy);
+
+                    MainActivity.realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            dbModel dbmodel =MainActivity.realmResults.get(getAdapterPosition());
+                            dbmodel.setText(editText_mofigy.getText().toString());
+                            //                    MainActivity.realm.insertOrUpdate(dbmodel);
+                            MainActivity.adapter.notifyDataSetChanged();
+                        }
+                    });
+
                 }
             });
             builder.create();
