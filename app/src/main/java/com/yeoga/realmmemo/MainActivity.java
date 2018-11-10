@@ -8,10 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -43,6 +46,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.notifyDataSetChanged();
 
         editText = (EditText) findViewById(R.id.editText);
+        editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                if(actionId == EditorInfo.IME_ACTION_DONE) {
+                    realm.beginTransaction();
+                    dbmodel = realm.createObject(dbModel.class);
+                    dbmodel.setText(editText.getText().toString());
+                    realm.commitTransaction();
+                    editText.setText("");
+                    adapter.notifyDataSetChanged();
+                }
+                return false;
+            }
+        });
         button = (Button) findViewById(R.id.button);
         button.setOnClickListener(this);
 

@@ -88,6 +88,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
             EditText editText_mofigy = modifyView.findViewById(R.id.editText_mofigy);
             if (MainActivity.realmResults.get(getAdapterPosition()).text != null) {
                 editText_mofigy.setText(MainActivity.realmResults.get(getAdapterPosition()).text);
+                editText_mofigy.setSelection(editText_mofigy.length());
             }
             builder.setView(modifyView);
             builder.setNegativeButton("취소", new DialogInterface.OnClickListener(){
