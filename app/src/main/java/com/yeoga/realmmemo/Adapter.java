@@ -48,25 +48,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView textView;
-        Button button_modify, button_remove;
+        Button button_remove;
 
         ViewHolder(View itemView) {
             super(itemView);
 
             textView = (TextView) itemView.findViewById(R.id.textView);
-            button_modify = (Button) itemView.findViewById(R.id.button_modify);
             button_remove = (Button) itemView.findViewById(R.id.button_remove);
-            button_modify.setOnClickListener(this);
+            textView.setOnClickListener(this);
             button_remove.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.button_modify:
+                case R.id.textView:
                     showModifyDialog();
-
                     break;
+
                 case R.id.button_remove:
                     MainActivity.realm.executeTransaction(new Realm.Transaction() {
                         @Override
